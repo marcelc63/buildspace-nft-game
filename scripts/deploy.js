@@ -9,25 +9,28 @@ const main = async () => {
       "https://i.imgur.com/hCLiYuy.png",
     ],
     [200, 250, 150], // HP values
-    [100, 80, 150] // Attack damage values
+    [100, 80, 150], // Attack damage values
+    "Big Cat", // Boss name
+    "https://i.imgur.com/lDXOm01.png", // Boss image
+    10000, // Boss hp
+    50 // Boss attack damage
   );
   await contract.deployed();
   console.log("Contract deployed to:", contract.address);
 
   let txn;
-  txn = await contract.mintCharacterNFT(0);
-  await txn.wait();
-  console.log("Minted NFT #1");
-
-  txn = await contract.mintCharacterNFT(1);
-  await txn.wait();
-  console.log("Minted NFT #2");
 
   txn = await contract.mintCharacterNFT(2);
   await txn.wait();
-  console.log("Minted NFT #3");
 
-  console.log("Done deploying and minting!");
+  let returnedTokenUri = await contract.tokenURI(1);
+  console.log("Token URI:", returnedTokenUri);
+
+  txn = await contract.attackBoss();
+  await txn.wait();
+
+  txn = await contract.attackBoss();
+  await txn.wait();
 };
 
 const runMain = async () => {

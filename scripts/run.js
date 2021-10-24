@@ -25,6 +25,12 @@ const main = async () => {
 
   let returnedTokenUri = await contract.tokenURI(1);
   console.log("Token URI:", returnedTokenUri);
+
+  txn = await contract.attackBoss();
+  await txn.wait();
+
+  txn = await contract.attackBoss();
+  await txn.wait();
 };
 
 const runMain = async () => {
