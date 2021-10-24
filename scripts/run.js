@@ -9,7 +9,11 @@ const main = async () => {
       "https://i.imgur.com/hCLiYuy.png",
     ],
     [200, 250, 150], // HP values
-    [100, 80, 150] // Attack damage values
+    [100, 80, 150], // Attack damage values
+    "Big Cat", // Boss name
+    "https://i.imgur.com/lDXOm01.png", // Boss image
+    10000, // Boss hp
+    50 // Boss attack damage
   );
   await contract.deployed();
   console.log("Contract deployed to:", contract.address);
