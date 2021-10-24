@@ -1,14 +1,33 @@
 const main = async () => {
-  const ContractFactory = await hre.ethers.getContractFactory(
-    "CoolCatsTemplate"
+  const ContractFactory = await hre.ethers.getContractFactory("NFTGame");
+
+  const contract = await ContractFactory.deploy(
+    ["Calm Cat", "Cool Cat", "Evil Cat"], // Names
+    [
+      "https://i.imgur.com/kVxV5Yn.png", // Images
+      "https://i.imgur.com/4U7AClV.png",
+      "https://i.imgur.com/hCLiYuy.png",
+    ],
+    [200, 250, 150], // HP values
+    [100, 80, 150] // Attack damage values
   );
-
-  // TODO: Change to where you will host your metadata
-  const baseURI = "https://api.example.com";
-
-  const contract = await ContractFactory.deploy({ args: [baseURI] });
   await contract.deployed();
   console.log("Contract deployed to:", contract.address);
+
+  let txn;
+  txn = await contract.mintCharacterNFT(0);
+  await txn.wait();
+  console.log("Minted NFT #1");
+
+  txn = await contract.mintCharacterNFT(1);
+  await txn.wait();
+  console.log("Minted NFT #2");
+
+  txn = await contract.mintCharacterNFT(2);
+  await txn.wait();
+  console.log("Minted NFT #3");
+
+  console.log("Done deploying and minting!");
 };
 
 const runMain = async () => {

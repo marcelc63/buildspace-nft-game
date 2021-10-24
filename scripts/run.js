@@ -1,9 +1,26 @@
 const main = async () => {
   const ContractFactory = await hre.ethers.getContractFactory("NFTGame");
 
-  const contract = await ContractFactory.deploy();
+  const contract = await ContractFactory.deploy(
+    ["Calm Cat", "Cool Cat", "Evil Cat"], // Names
+    [
+      "https://i.imgur.com/kVxV5Yn.png", // Images
+      "https://i.imgur.com/4U7AClV.png",
+      "https://i.imgur.com/hCLiYuy.png",
+    ],
+    [200, 250, 150], // HP values
+    [100, 80, 150] // Attack damage values
+  );
   await contract.deployed();
   console.log("Contract deployed to:", contract.address);
+
+  let txn;
+
+  txn = await contract.mintCharacterNFT(2);
+  await txn.wait();
+
+  let returnedTokenUri = await contract.tokenURI(1);
+  console.log("Token URI:", returnedTokenUri);
 };
 
 const runMain = async () => {
