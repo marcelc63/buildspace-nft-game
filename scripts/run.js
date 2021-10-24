@@ -31,6 +31,9 @@ const main = async () => {
 
   txn = await contract.attackBoss();
   await txn.wait();
+
+  txn = await contract.healCharacter();
+  await txn.wait();
 };
 
 const runMain = async () => {

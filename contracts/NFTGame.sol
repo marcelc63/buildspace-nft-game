@@ -15,6 +15,7 @@ contract NFTGame is ERC721 {
     uint256 characterIndex
   );
   event AttackComplete(uint256 newBossHp, uint256 newPlayerHp);
+  event HealComplete(uint256 newPlayerHp);
 
   struct CharacterAttributes {
     uint256 characterIndex;
@@ -52,7 +53,7 @@ contract NFTGame is ERC721 {
     string memory bossImageURI,
     uint256 bossHp,
     uint256 bossAttackDamage
-  ) ERC721("Heroes", "HERO") {
+  ) ERC721("Catverse", "CAT") {
     bigBoss = BigBoss({
       name: bossName,
       imageURI: bossImageURI,
@@ -140,7 +141,7 @@ contract NFTGame is ERC721 {
             charAttributes.name,
             " -- NFT #: ",
             Strings.toString(_tokenId),
-            '", "description": "This is a round cat NFT that you can use to play a game!", "image": "',
+            '", "description": "A cat from the Catverse trying to defeat the Boss Cat!", "image": "',
             charAttributes.imageURI,
             '", "attributes": [ { "trait_type": "Health Points", "value": ',
             strHp,
@@ -214,6 +215,28 @@ contract NFTGame is ERC721 {
       player.hp
     );
     emit AttackComplete(bigBoss.hp, player.hp);
+  }
+
+  function healCharacter() public {
+    // Get the state of the player's NFT.
+    uint256 nftTokenIdOfPlayer = nftHolders[msg.sender];
+    CharacterAttributes storage player = nftHolderAttributes[
+      nftTokenIdOfPlayer
+    ];
+
+    // Make sure the player has less HP than maxHP
+    require(player.hp < player.maxHp - 1, "Error: character HP is full.");
+
+    // Allow boss to attack player.
+    if (player.hp + 100 < player.maxHp) {
+      player.hp = player.hp + 100;
+    } else {
+      player.hp = player.maxHp;
+    }
+
+    // Console for ease.
+    console.log("%s healed. New player hp: %s", player.name, player.hp);
+    emit HealComplete(player.hp);
   }
 
   function checkIfUserHasNFT()
