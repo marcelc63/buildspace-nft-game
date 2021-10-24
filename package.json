@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
+    "dotenv": "^10.0.0",
     "prettier": "^2.4.1",
     "prettier-plugin-solidity": "*"
   }
