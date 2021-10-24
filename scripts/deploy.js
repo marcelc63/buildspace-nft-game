@@ -10,7 +10,7 @@ const main = async () => {
     ],
     [200, 250, 150], // HP values
     [100, 80, 150], // Attack damage values
-    "Big Cat", // Boss name
+    "Boss Cat", // Boss name
     "https://i.imgur.com/lDXOm01.png", // Boss image
     10000, // Boss hp
     50 // Boss attack damage
@@ -20,17 +20,11 @@ const main = async () => {
 
   let txn;
 
-  txn = await contract.mintCharacterNFT(2);
+  txn = await contract.mintCharacterNFT(0);
   await txn.wait();
 
   let returnedTokenUri = await contract.tokenURI(1);
   console.log("Token URI:", returnedTokenUri);
-
-  txn = await contract.attackBoss();
-  await txn.wait();
-
-  txn = await contract.attackBoss();
-  await txn.wait();
 };
 
 const runMain = async () => {

@@ -10,7 +10,7 @@ const main = async () => {
     ],
     [200, 250, 150], // HP values
     [100, 80, 150], // Attack damage values
-    "Big Cat", // Boss name
+    "Boss Cat", // Boss name
     "https://i.imgur.com/lDXOm01.png", // Boss image
     10000, // Boss hp
     50 // Boss attack damage
